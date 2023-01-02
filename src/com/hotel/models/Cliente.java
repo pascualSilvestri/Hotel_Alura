@@ -4,19 +4,31 @@ import com.toedter.calendar.JCalendar;
 
 public class Cliente extends Persona{
 	
+	private int id;
 	private String nacionalidad;
 	private Integer telefono;
 	private JCalendar fechaNac; 
 	private String numeroReserva;
 	
 
-	public Cliente(String nombre, Integer dni,String nacionalidad,Integer telefono,JCalendar fechaNac, String numeroCliente) {
+	public Cliente(int id,String nombre, Integer dni,String nacionalidad,Integer telefono,JCalendar fechaNac, String numeroCliente) {
 		super(nombre, dni);
+		this.id = id;
 		this.numeroReserva = numeroCliente;
 		this.fechaNac = fechaNac;
 		this.nacionalidad = nacionalidad;
 		this.telefono = telefono;
 		
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
