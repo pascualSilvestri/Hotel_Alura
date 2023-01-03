@@ -372,10 +372,6 @@ public class RegistroHuesped extends JFrame {
 			JOptionPane.showMessageDialog(this, "Los campos Nombre, Apellido y telefono son requeridos.");
 		}
 		
-		System.out.println(fechaNac);
-		System.out.println(fechaNacimiento);
-		System.out.println(nacionalidad);
-		
 		Cliente cliente = new Cliente(nombre,apellido,nacionalidad,telefono,fechaNacimiento,numReserva);
 		
 		

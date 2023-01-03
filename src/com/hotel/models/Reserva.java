@@ -22,6 +22,18 @@ public class Reserva {
 		this.formaPago = formaPago;
 	}
 
+	public Reserva(
+			String fechaEntrada,
+			String fechaSalida,
+			Double valor,
+			String formaPago
+			) {
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.valor = valor;
+		this.formaPago = formaPago;
+	}
+
 	public int getNumeroReserva() {
 		return numeroReserva;
 	}
