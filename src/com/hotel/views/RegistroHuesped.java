@@ -6,8 +6,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
+
+import com.hotel.control.ClienteControl;
+import com.hotel.models.Cliente;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +25,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -28,7 +35,7 @@ import javax.swing.JSeparator;
 @SuppressWarnings("serial")
 public class RegistroHuesped extends JFrame {
 
-	private JPanel contentPane;
+	
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtTelefono;
@@ -38,7 +45,10 @@ public class RegistroHuesped extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	int xMouse, yMouse;
+	private JButton btnguardar;
 
+	
+	private ClienteControl clienteControl ;
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +69,15 @@ public class RegistroHuesped extends JFrame {
 	 * Create the frame.
 	 */
 	public RegistroHuesped() {
+		
+		JPanel contentPane = new JPanel();
+		configuarcionViews(contentPane);
 
+		this.clienteControl = new ClienteControl();
+		
+	}
+	
+	private void configuarcionViews(JPanel contentPane) {
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -266,24 +284,26 @@ public class RegistroHuesped extends JFrame {
 		separator_1_2_5.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_5);
 
-		JPanel btnguardar = new JPanel();
+		btnguardar = new JButton("GUARDAR");
 		btnguardar.setBounds(723, 560, 122, 35);
-		btnguardar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
+		
 		btnguardar.setLayout(null);
 		btnguardar.setBackground(new Color(12, 138, 199));
 		contentPane.add(btnguardar);
-		btnguardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		//btnguardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		
+		btnguardar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	guardar();
+            }
+        });
 
-		JLabel labelGuardar = new JLabel("GUARDAR");
-		labelGuardar.setHorizontalAlignment(SwingConstants.CENTER);
-		labelGuardar.setForeground(Color.WHITE);
-		labelGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
-		labelGuardar.setBounds(0, 0, 122, 35);
-		btnguardar.add(labelGuardar);
+		//JLabel labelGuardar = new JLabel("GUARDAR");
+		//labelGuardar.setHorizontalAlignment(SwingConstants.CENTER);
+		//labelGuardar.setForeground(Color.WHITE);
+		//labelGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
+		//labelGuardar.setBounds(0, 0, 122, 35);
+		//btnguardar.add(labelGuardar);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 489, 634);
@@ -334,15 +354,34 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setForeground(SystemColor.black);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 	}
-
-	public void Registrar() {
-
+	
+	
+	private void guardar() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+    	String nombre = txtNombre.getText();
+    	String apellido = txtApellido.getText();
+    	Integer telefono = Integer.parseInt(txtTelefono.getText());
+    	String numReserva = txtNreserva.getText();
+    	String nacionalidad = txtNacionalidad.getSelectedItem().toString();
+    	Date fechaNac = txtFechaN.getDate();
+    	String fechaNacimiento = formatter.format(fechaNac);
+    	
+    	
+		if(nombre.isEmpty() && apellido.isEmpty()) {
+			System.out.println("No puede estar en blanco");
+			JOptionPane.showMessageDialog(this, "Los campos Nombre, Apellido y telefono son requeridos.");
+		}
+		
+		System.out.println(fechaNac);
+		System.out.println(fechaNacimiento);
+		System.out.println(nacionalidad);
+		
+		Cliente cliente = new Cliente(nombre,apellido,nacionalidad,telefono,fechaNacimiento,numReserva);
+		
+		
+		clienteControl.guardar(cliente);
+		
 	}
-	
-	
-	
-	
-	
 
 	// Código que permite mover la ventana por la pantalla según la posición de "x"
 	// y "y"

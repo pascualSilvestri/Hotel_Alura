@@ -1,23 +1,51 @@
 package com.hotel.models;
 
-import com.toedter.calendar.JCalendar;
-
-public class Cliente extends Persona{
+public class Cliente {
 	
 	private int id;
+	private String nombre;
+	private String apellido;
 	private String nacionalidad;
 	private Integer telefono;
-	private JCalendar fechaNac; 
+	private String fechaNac; 
 	private String numeroReserva;
 	
 
-	public Cliente(int id,String nombre, Integer dni,String nacionalidad,Integer telefono,JCalendar fechaNac, String numeroCliente) {
-		super(nombre, dni);
+	public Cliente(
+			int id,
+			String nombre,
+			String apellido,
+			String nacionalidad,
+			Integer telefono,
+			String fechaNac,
+			String numReserva
+			) {
 		this.id = id;
-		this.numeroReserva = numeroCliente;
+		this.setNombre(nombre);
+		this.setApellido(apellido);
+		this.numeroReserva = numReserva;
 		this.fechaNac = fechaNac;
 		this.nacionalidad = nacionalidad;
 		this.telefono = telefono;
+		
+	}
+
+
+	public Cliente(
+			String nombre,
+			String apellido,
+			String nacionalidad,
+			Integer telefono,
+			String fechaNacimiento,
+			String numReserva
+			) {
+		this.setNombre(nombre);
+		this.setApellido(apellido);
+		this.numeroReserva = numReserva;
+		this.fechaNac = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+		
 		
 	}
 
@@ -52,12 +80,12 @@ public class Cliente extends Persona{
 	}
 
 
-	public JCalendar getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
 
-	public void setFechaNac(JCalendar fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
@@ -79,6 +107,26 @@ public class Cliente extends Persona{
 
 	public void setNumeroCliente(String numeroCliente) {
 		this.numeroReserva = numeroCliente;
+	}
+
+
+	public String getApellido() {
+		return apellido;
+	}
+
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	
