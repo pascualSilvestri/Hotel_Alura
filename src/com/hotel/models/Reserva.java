@@ -5,16 +5,16 @@ import java.util.Date;
 public class Reserva {
 	
 	private int numeroReserva;
-	private Date fechaEntrada;
-	private Date fechaSalida;
-	private int valor;
+	private String fechaEntrada;
+	private String fechaSalida;
+	private long valor;
 	private String formaPago;
 	
 	public Reserva(
 			int numeroReserva,
-			Date fechaEntrada,
-			Date fechaSalida,
-			int valor,
+			 String fechaEntrada,
+			 String fechaSalida,
+			long valor,
 			String formaPago
 			) {
 		this.numeroReserva = numeroReserva;
@@ -25,9 +25,9 @@ public class Reserva {
 	}
 
 	public Reserva(
-			Date fechaEntrada,
-			Date fechaSalida,
-			int valor,
+			 String fechaEntrada,
+			 String fechaSalida,
+			long valor,
 			String formaPago
 			) {
 		this.fechaEntrada = fechaEntrada;
@@ -44,27 +44,27 @@ public class Reserva {
 		this.numeroReserva = numeroReserva;
 	}
 
-	public Date getFechaEntrada() {
+	public String getFechaEntrada() {
 		return fechaEntrada;
 	}
 
-	public void setFechaEntrada(Date fechaEntrada) {
+	public void setFechaEntrada( String fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
 
-	public Date getFechaSalida() {
+	public  String getFechaSalida() {
 		return fechaSalida;
 	}
 
-	public void setFechaSalida(Date fechaSalida) {
+	public void setFechaSalida( String fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public int getValor() {
+	public long getValor() {
 		return valor;
 	}
 
-	public void setValor(int valor) {
+	public void setValor(long valor) {
 		this.valor = valor;
 	}
 

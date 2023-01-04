@@ -24,14 +24,14 @@ public class ReservaControl {
 		 try {
 	            PreparedStatement statement;
 	                statement = con.prepareStatement(
-	                        "INSERT INTO PRODUCTO "
+	                        "INSERT INTO RESERVA "
 	                        + "(fecha_de_entrada, fecha_de_salida, valor,forma_de_pago)"
 	                        + " VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 	    
 	            try (statement) {
-	                statement.setDate(1, (Date) reserva.getFechaEntrada());
-	                statement.setDate(2, (Date) reserva.getFechaSalida());
-	                statement.setInt(3, reserva.getValor());
+	                statement.setString(1, reserva.getFechaEntrada());
+	                statement.setString(2, reserva.getFechaSalida());
+	                statement.setLong(3, reserva.getValor());
 	                statement.setString(4, reserva.getFormaPago());
 	    
 	                statement.execute();

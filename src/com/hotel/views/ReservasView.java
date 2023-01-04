@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,7 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import java.time.temporal.*;
 
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
@@ -339,15 +341,36 @@ public class ReservasView extends JFrame {
 		Date fechaS = txtFechaS.getDate();
 		String fechaEntrada = formatter.format(fechaE);
 		String fechaSalida = formatter.format(fechaS);
-		int valor = 3000;
 		String formaPago = txtFormaPago.getSelectedItem().toString();
+		long valor = valorReserva(fechaE,fechaS);
 		
 		
-		Reserva reserva = new Reserva(fechaE, fechaS,valor,formaPago);
+		System.out.println(valor);
+		if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {
+			txtValor.setText(String.valueOf(valor));
+		}
 		
+		Reserva reserva = new Reserva(fechaEntrada, fechaSalida,valor,formaPago);
+		
+		System.out.println();
 		this.reservaControl.reservar(reserva);
 		//enviar el objeto a ReservaControl, crearla si no esta creada y crear el metodo guardar en ResercaControl
 		
+	}
+	
+	public long valorReserva(Date fechaE, Date fechaS) {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String diaE = formatter.format(fechaE);
+		String diaS = formatter.format(fechaS);
+		LocalDate diaEntreda = LocalDate.parse(diaE);
+		LocalDate diaSalida = LocalDate.parse(diaS);
+		
+		int tasa = 1000;
+		long diasTotales = ChronoUnit.DAYS.between(diaEntreda, diaSalida);
+		long valor = (tasa * diasTotales) ;
+		
+		return valor;
 	}
 	
 	
