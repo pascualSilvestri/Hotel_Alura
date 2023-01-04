@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 
+import com.hotel.control.ReservaControl;
 import com.hotel.models.Reserva;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
@@ -41,6 +42,8 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel lblValorSimbolo;
 	private JLabel labelAtras;
+	
+	ReservaControl reservaControl;
 
 	/**
 	 * Launch the application.
@@ -306,6 +309,7 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {
+					reservar();
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
 				} else {
@@ -335,13 +339,13 @@ public class ReservasView extends JFrame {
 		Date fechaS = txtFechaS.getDate();
 		String fechaEntrada = formatter.format(fechaE);
 		String fechaSalida = formatter.format(fechaS);
-		Double valor = Double.valueOf(txtValor.getText());
+		int valor = 3000;
 		String formaPago = txtFormaPago.getSelectedItem().toString();
 		
 		
-		Reserva reserva = new Reserva(fechaEntrada, fechaSalida,valor,formaPago);
+		Reserva reserva = new Reserva(fechaE, fechaS,valor,formaPago);
 		
-		
+		this.reservaControl.reservar(reserva);
 		//enviar el objeto a ReservaControl, crearla si no esta creada y crear el metodo guardar en ResercaControl
 		
 	}

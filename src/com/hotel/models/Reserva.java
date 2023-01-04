@@ -1,18 +1,20 @@
 package com.hotel.models;
 
+import java.util.Date;
+
 public class Reserva {
 	
 	private int numeroReserva;
-	private String fechaEntrada;
-	private String fechaSalida;
-	private Double valor;
+	private Date fechaEntrada;
+	private Date fechaSalida;
+	private int valor;
 	private String formaPago;
 	
 	public Reserva(
 			int numeroReserva,
-			String fechaEntrada,
-			String fechaSalida,
-			Double valor,
+			Date fechaEntrada,
+			Date fechaSalida,
+			int valor,
 			String formaPago
 			) {
 		this.numeroReserva = numeroReserva;
@@ -23,9 +25,9 @@ public class Reserva {
 	}
 
 	public Reserva(
-			String fechaEntrada,
-			String fechaSalida,
-			Double valor,
+			Date fechaEntrada,
+			Date fechaSalida,
+			int valor,
 			String formaPago
 			) {
 		this.fechaEntrada = fechaEntrada;
@@ -42,27 +44,27 @@ public class Reserva {
 		this.numeroReserva = numeroReserva;
 	}
 
-	public String getFechaEntrada() {
+	public Date getFechaEntrada() {
 		return fechaEntrada;
 	}
 
-	public void setFechaEntrada(String fechaEntrada) {
+	public void setFechaEntrada(Date fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
 
-	public String getFechaSalida() {
+	public Date getFechaSalida() {
 		return fechaSalida;
 	}
 
-	public void setFechaSalida(String fechaSalida) {
+	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Double getValor() {
+	public int getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(int valor) {
 		this.valor = valor;
 	}
 

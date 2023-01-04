@@ -3,9 +3,22 @@ import com.hotel.connect.ConnectFactory;
 
 public class TestConnect {
 	
-	public static void main(String[] args) {
-		ConnectFactory con = new ConnectFactory();
+	ConnectFactory con;
+	
+	public TestConnect() {
+		this.con = new ConnectFactory();
+	}
+	
+	
+	public void datos() {
 		con.recuperaConexion();
+	}
+	
+	public static void main(String[] args) {
+		 ConnectFactory con = new ConnectFactory();
+		System.out.println(con.recuperaConexion());
+		
+		
 		
 	}
 }
