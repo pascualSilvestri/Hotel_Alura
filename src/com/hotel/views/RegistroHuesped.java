@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
 
-import com.hotel.control.ClienteControl;
+import com.hotel.control.ReservaControl;
 import com.hotel.models.Cliente;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
@@ -48,7 +48,7 @@ public class RegistroHuesped extends JFrame {
 	private JButton btnguardar;
 
 	
-	private ClienteControl clienteControl ;
+	private ReservaControl reservaControl ;
 	/**
 	 * Launch the application.
 	 */
@@ -73,7 +73,7 @@ public class RegistroHuesped extends JFrame {
 		JPanel contentPane = new JPanel();
 		configuarcionViews(contentPane);
 
-		this.clienteControl = new ClienteControl();
+		this.reservaControl = new ReservaControl();
 		
 	}
 	
@@ -366,7 +366,6 @@ public class RegistroHuesped extends JFrame {
     	Date fechaNac = txtFechaN.getDate();
     	String fechaNacimiento = formatter.format(fechaNac);
     	
-    	
 		if(nombre.isEmpty() && apellido.isEmpty()) {
 			System.out.println("No puede estar en blanco");
 			JOptionPane.showMessageDialog(this, "Los campos Nombre, Apellido y telefono son requeridos.");
@@ -375,7 +374,7 @@ public class RegistroHuesped extends JFrame {
 		Cliente cliente = new Cliente(nombre,apellido,nacionalidad,telefono,fechaNacimiento,numReserva);
 		
 		
-		clienteControl.guardar(cliente);
+		reservaControl.guardarCliente(cliente);
 		
 	}
 

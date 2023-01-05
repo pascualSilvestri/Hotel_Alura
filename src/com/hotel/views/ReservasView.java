@@ -32,6 +32,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import java.time.temporal.*;
 
+/**
+ * @author silve
+ *
+ */
+/**
+ * @author silve
+ *
+ */
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
 
@@ -44,6 +52,8 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel lblValorSimbolo;
 	private JLabel labelAtras;
+	
+	
 	
 	ReservaControl reservaControl;
 
@@ -68,6 +78,7 @@ public class ReservasView extends JFrame {
 	 */
 	public ReservasView() {
 		super("Reserva");
+		this.reservaControl = new ReservaControl();
 		configuracionViews(contentPane);
 	}
 
@@ -153,7 +164,17 @@ public class ReservasView extends JFrame {
 		txtFechaS.setFont(new Font("Roboto", Font.PLAIN, 18));
 		txtFechaS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-//Activa el evento, después del usuario seleccionar las fechas se debe calcular el valor de la reserva
+				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+					Date fechaE = txtFechaE.getDate();
+					Date fechaS = txtFechaS.getDate();
+					String fechaEntrada = formatter.format(fechaE);
+					String fechaSalida = formatter.format(fechaS);
+
+					long valor = valorReserva(fechaE,fechaS);
+					
+					txtValor.setText(String.valueOf(valor));
+				}
 			}
 		});
 		txtFechaS.setDateFormatString("yyyy-MM-dd");
@@ -341,22 +362,16 @@ public class ReservasView extends JFrame {
 		Date fechaS = txtFechaS.getDate();
 		String fechaEntrada = formatter.format(fechaE);
 		String fechaSalida = formatter.format(fechaS);
-		String formaPago = txtFormaPago.getSelectedItem().toString();
 		long valor = valorReserva(fechaE,fechaS);
-		
-		
-		System.out.println(valor);
-		if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {
-			txtValor.setText(String.valueOf(valor));
-		}
-		
+		String formaPago = txtFormaPago.getSelectedItem().toString();
+	
+	
 		Reserva reserva = new Reserva(fechaEntrada, fechaSalida,valor,formaPago);
 		
-		System.out.println();
-		this.reservaControl.reservar(reserva);
-		//enviar el objeto a ReservaControl, crearla si no esta creada y crear el metodo guardar en ResercaControl
 		
-	}
+		this.reservaControl.guardar(reserva);
+	}	
+	
 	
 	public long valorReserva(Date fechaE, Date fechaS) {
 		
@@ -366,18 +381,13 @@ public class ReservasView extends JFrame {
 		LocalDate diaEntreda = LocalDate.parse(diaE);
 		LocalDate diaSalida = LocalDate.parse(diaS);
 		
-		int tasa = 1000;
+		int tasa = 1500;
 		long diasTotales = ChronoUnit.DAYS.between(diaEntreda, diaSalida);
 		long valor = (tasa * diasTotales) ;
 		
 		return valor;
 	}
-	
-	
-	
-	
-	
-	
+
 
 	// Código que permite mover la ventana por la pantalla según la posición de "x"
 	// y "y"

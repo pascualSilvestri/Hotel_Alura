@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Reserva {
 	
-	private int numeroReserva;
+	private int id;
 	private String fechaEntrada;
 	private String fechaSalida;
 	private long valor;
@@ -17,7 +17,7 @@ public class Reserva {
 			long valor,
 			String formaPago
 			) {
-		this.numeroReserva = numeroReserva;
+		this.id = numeroReserva;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.valor = valor;
@@ -36,12 +36,13 @@ public class Reserva {
 		this.formaPago = formaPago;
 	}
 
-	public int getNumeroReserva() {
-		return numeroReserva;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setNumeroReserva(int numeroReserva) {
-		this.numeroReserva = numeroReserva;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFechaEntrada() {
