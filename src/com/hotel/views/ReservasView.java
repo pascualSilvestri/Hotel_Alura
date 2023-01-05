@@ -82,6 +82,9 @@ public class ReservasView extends JFrame {
 		configuracionViews(contentPane);
 	}
 
+	/**
+	 * @param contentPane
+	 */
 	private void configuracionViews(JPanel contentPane) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -296,6 +299,7 @@ public class ReservasView extends JFrame {
 				MenuUsuario usuario = new MenuUsuario();
 				usuario.setVisible(true);
 				dispose();
+				
 			}
 
 			@Override
@@ -334,7 +338,9 @@ public class ReservasView extends JFrame {
 				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {
 					reservar();
 					RegistroHuesped registro = new RegistroHuesped();
+					ReservasView frame = new ReservasView();
 					registro.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}

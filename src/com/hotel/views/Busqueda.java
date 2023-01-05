@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.hotel.control.ReservaControl;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -12,9 +15,12 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Optional;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
@@ -37,6 +43,8 @@ public class Busqueda extends JFrame {
 	private JLabel labelAtras;
 	private JLabel labelExit;
 	int xMouse, yMouse;
+	
+	private ReservaControl reservaControl;
 
 	/**
 	 * Launch the application.
@@ -58,6 +66,16 @@ public class Busqueda extends JFrame {
 	 * Create the frame.
 	 */
 	public Busqueda() {
+		configuracionViews(contentPane);
+		
+		this.reservaControl = new ReservaControl();
+		cargarTablACliete();
+		cargarTablAReserva();
+		
+	}
+	
+	
+	private void configuracionViews(JPanel contentPane) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
@@ -255,7 +273,69 @@ public class Busqueda extends JFrame {
 		lblEliminar.setBounds(0, 0, 122, 35);
 		btnEliminar.add(lblEliminar);
 		setResizable(false);
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				eliminar();			
+			}
+		});
+		
+		
+		
 	}
+	
+	
+	
+	 private void cargarTablACliete() {
+	        var cliente = this.reservaControl.listaCliente();
+
+	        cliente.forEach(clientes -> modeloH.addRow(
+	                new Object[] {
+	                        clientes.getId(),
+	                        clientes.getNombre(),
+	                        clientes.getApellido(),
+	                        clientes.getFechaNac(),
+	                        clientes.getNacionalidad(),
+	                        clientes.getNumeroReserva(),
+	                        clientes.getTelefono()
+	                        }));
+	    }
+	 
+	 private void cargarTablAReserva() {
+	        var reserva = this.reservaControl.listaReserva();
+
+	        reserva.forEach(reservas -> modelo.addRow(
+	                new Object[] {
+	                		reservas.getId(),
+	                		reservas.getFechaEntrada(),
+	                		reservas.getFechaSalida(),
+	                		reservas.getValor(),
+	                		reservas.getFormaPago(),
+	                        }));
+	    }
+	 
+	 private boolean tieneFilaElegida(JTable tabla) {
+	        return tabla.getSelectedRowCount() == 0 || tabla.getSelectedColumnCount() == 0;
+	 }
+	 
+	 private void eliminar() {
+	        if (tieneFilaElegida(tbReservas)) {
+	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
+	            return;
+	        }
+
+	        Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
+	                .ifPresentOrElse(fila -> {
+	                    Integer id = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+	                    System.out.println(id);
+	                    var filasModificadas = this.reservaControl.eliminar(id);
+
+	                    modelo.removeRow(tbReservas.getSelectedRow());
+
+	                    JOptionPane.showMessageDialog(this,
+	                    String.format("%d item eliminado con éxito!", filasModificadas));
+	                }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
+	 }
 	
 //Código que permite mover la ventana por la pantalla según la posición de "x" y "y"
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {

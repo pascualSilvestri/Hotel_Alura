@@ -1,5 +1,7 @@
 package com.hotel.control;
 
+import java.util.List;
+
 import com.hotel.connect.ConnectFactory;
 import com.hotel.dao.ReservaDAO;
 import com.hotel.models.Cliente;
@@ -7,13 +9,19 @@ import com.hotel.models.Reserva;
 
 public class ReservaControl {
 	
-	ReservaDAO reservaDAO;
+	ReservaDAO<?> reservaDAO;
 	
-	int id;
+	private int id;
+	
+	
 	
 	public ReservaControl() {
 		var con = new ConnectFactory();
         this.reservaDAO = new ReservaDAO(con.recuperaConexion());
+	}
+	
+	public String returnNumReserva() {
+		return String.valueOf(reservaDAO.returnarUltimaReserva().get(0));
 	}
 	
 	public void guardar(Reserva reserva) {
@@ -22,7 +30,21 @@ public class ReservaControl {
 	}
 	
 	public void guardarCliente(Cliente cliente) {
-		reservaDAO.reservaCliente(cliente, id);
+		System.out.println(id);
+		reservaDAO.reservaCliente(cliente);
+	}
+	
+	public List<Cliente> listaCliente() {
+		return reservaDAO.listaCliente();
+	}
+	
+	
+	public List<Reserva> listaReserva(){
+		return reservaDAO.listaReserva();
+	}
+
+	public int eliminar(int id) {
+		return reservaDAO.eliminar(id);
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 import com.hotel.control.ReservaControl;
+import com.hotel.dao.ReservaDAO;
 import com.hotel.models.Cliente;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
@@ -47,8 +48,10 @@ public class RegistroHuesped extends JFrame {
 	int xMouse, yMouse;
 	private JButton btnguardar;
 
+	private String numReserva;
 	
 	private ReservaControl reservaControl ;
+	private ReservaDAO reservaDAO;
 	/**
 	 * Launch the application.
 	 */
@@ -74,7 +77,8 @@ public class RegistroHuesped extends JFrame {
 		configuarcionViews(contentPane);
 
 		this.reservaControl = new ReservaControl();
-		
+		this.numReserva = reservaControl.returnNumReserva();
+		txtNreserva.setText(numReserva);
 	}
 	
 	private void configuarcionViews(JPanel contentPane) {
@@ -295,6 +299,11 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	guardar();
+            	MenuUsuario menuUsuario = new MenuUsuario();
+            	RegistroHuesped registro = new RegistroHuesped();
+            	menuUsuario.setVisible(true);
+            	dispose();
+            	
             }
         });
 
@@ -360,7 +369,7 @@ public class RegistroHuesped extends JFrame {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
     	String nombre = txtNombre.getText();
     	String apellido = txtApellido.getText();
-    	Integer telefono = Integer.parseInt(txtTelefono.getText());
+    	String telefono = txtTelefono.getText();
     	String numReserva = txtNreserva.getText();
     	String nacionalidad = txtNacionalidad.getSelectedItem().toString();
     	Date fechaNac = txtFechaN.getDate();
@@ -374,7 +383,9 @@ public class RegistroHuesped extends JFrame {
 		Cliente cliente = new Cliente(nombre,apellido,nacionalidad,telefono,fechaNacimiento,numReserva);
 		
 		
-		reservaControl.guardarCliente(cliente);
+		this.reservaControl.guardarCliente(cliente);
+		
+		JOptionPane.showMessageDialog(this, "El registro se realizo con Exito, su numero de reserva es: "+ numReserva);
 		
 	}
 

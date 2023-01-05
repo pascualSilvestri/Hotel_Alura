@@ -6,7 +6,7 @@ public class Cliente {
 	private String nombre;
 	private String apellido;
 	private String nacionalidad;
-	private Integer telefono;
+	private String telefono;
 	private String fechaNac; 
 	private String numeroReserva;
 	
@@ -16,7 +16,7 @@ public class Cliente {
 			String nombre,
 			String apellido,
 			String nacionalidad,
-			Integer telefono,
+			String telefono,
 			String fechaNac,
 			String numReserva
 			) {
@@ -35,7 +35,7 @@ public class Cliente {
 			String nombre,
 			String apellido,
 			String nacionalidad,
-			Integer telefono,
+			String telefono,
 			String fechaNacimiento,
 			String numReserva
 			) {
@@ -70,12 +70,12 @@ public class Cliente {
 	}
 
 
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
