@@ -298,12 +298,8 @@ public class RegistroHuesped extends JFrame {
 		
 		btnguardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	guardar();
-            	MenuUsuario menuUsuario = new MenuUsuario();
-            	RegistroHuesped registro = new RegistroHuesped();
-            	menuUsuario.setVisible(true);
-            	dispose();
-            	
+            	guardar();     
+            	limpiarCampos();
             }
         });
 
@@ -349,8 +345,8 @@ public class RegistroHuesped extends JFrame {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnexit.setBackground(Color.white);
-				labelExit.setForeground(Color.black);
+				btnexit.setBackground(new Color(12, 138, 199));
+				labelExit.setForeground(Color.white);
 			}
 		});
 		btnexit.setLayout(null);
@@ -387,6 +383,14 @@ public class RegistroHuesped extends JFrame {
 		
 		JOptionPane.showMessageDialog(this, "El registro se realizo con Exito, su numero de reserva es: "+ numReserva);
 		
+	}
+	
+	
+	
+	public void limpiarCampos() {
+		txtNombre.setText("");
+		txtApellido.setText("");
+	    txtTelefono.setText("");		
 	}
 
 	// Código que permite mover la ventana por la pantalla según la posición de "x"

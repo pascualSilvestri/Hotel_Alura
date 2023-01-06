@@ -172,7 +172,7 @@ public class ReservaDAO<E> {
 		return resultado;
 	}
 
-	public int eliminar(int id) {
+	public int eliminarReserva(int id) {
 		  try {
 	            final PreparedStatement statement = con.prepareStatement("DELETE FROM RESERVA WHERE ID = ?");
 
@@ -188,4 +188,23 @@ public class ReservaDAO<E> {
 	            throw new RuntimeException(e);
 	        }
 	}
+	
+	public int eliminarCliente(int id) {
+		  try {
+	            final PreparedStatement statement = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
+
+	            try (statement) {
+	                statement.setInt(1, id);
+	                statement.execute();
+
+	                int updateCount = statement.getUpdateCount();
+
+	                return updateCount;
+	            }
+	        } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        }
+	}
+	
+	
 }

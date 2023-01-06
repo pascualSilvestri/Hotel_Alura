@@ -43,8 +43,14 @@ public class ReservaControl {
 		return reservaDAO.listaReserva();
 	}
 
-	public int eliminar(int id) {
-		return reservaDAO.eliminar(id);
+	public int eliminarReserva(int id) {
+		return reservaDAO.eliminarReserva(id);
 	}
+	
+	public int eliminarCliente(int id) {
+		return reservaDAO.eliminarCliente(id);
+	}
+	
+	
 
 }
