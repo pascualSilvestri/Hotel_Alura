@@ -50,6 +50,28 @@ public class ReservaControl {
 	public int eliminarCliente(int id) {
 		return reservaDAO.eliminarCliente(id);
 	}
+
+	public List<Reserva> ListaId(int id) {
+		return reservaDAO.listaId(id);
+		
+	}
+
+	public List<Cliente> ListaApellido(String busqueda) {
+		
+		return reservaDAO.listaApellido(busqueda);
+	}
+
+	public int modificarReserva(Integer id, String fechaEntrada, String fechaSalidad, Integer valor, String formaPago) {
+		
+		return reservaDAO.modificarReserva(id,fechaEntrada,fechaSalidad,valor,formaPago);
+	}
+
+	public int modificarCliente(Integer id, String nombre, String apellido, String fechaNac, String nacionalidad,
+			String telefono, Integer reservaId) {
+		
+		return reservaDAO.modificarCliente(id,nombre, apellido, fechaNac, nacionalidad,
+			telefono, reservaId);
+	}
 	
 	
 
