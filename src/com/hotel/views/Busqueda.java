@@ -96,6 +96,19 @@ public class Busqueda extends JFrame {
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
+		
+		JLabel lblNewLabel_4 = new JLabel("SISTEMA DE BÚSQUEDA");
+		lblNewLabel_4.setForeground(new Color(12, 138, 199));
+		lblNewLabel_4.setFont(new Font("Roboto Black", Font.BOLD, 24));
+		lblNewLabel_4.setBounds(331, 62, 280, 42);
+		contentPane.add(lblNewLabel_4);
+
+		JTabbedPane panel = new JTabbedPane(JTabbedPane.TOP);
+		panel.setBackground(new Color(12, 138, 199));
+		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
+		panel.setBounds(20, 169, 865, 328);
+		contentPane.add(panel);
+
 		txtBuscar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -111,8 +124,13 @@ public class Busqueda extends JFrame {
 				}else {
 					
 					String txt = txtBuscar.getText().toString();
-					buscarApellido(txt);
-					buscarId(txt);
+					if(panel.getSelectedIndex() == 0) {
+						buscarId(txt);
+					}else {
+						buscarApellido(txt);
+					}
+					
+					
 					ban = true;
 				}
 			}
@@ -122,18 +140,6 @@ public class Busqueda extends JFrame {
 				
 			}
 		});
-
-		JLabel lblNewLabel_4 = new JLabel("SISTEMA DE BÚSQUEDA");
-		lblNewLabel_4.setForeground(new Color(12, 138, 199));
-		lblNewLabel_4.setFont(new Font("Roboto Black", Font.BOLD, 24));
-		lblNewLabel_4.setBounds(331, 62, 280, 42);
-		contentPane.add(lblNewLabel_4);
-
-		JTabbedPane panel = new JTabbedPane(JTabbedPane.TOP);
-		panel.setBackground(new Color(12, 138, 199));
-		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
-		panel.setBounds(20, 169, 865, 328);
-		contentPane.add(panel);
 
 		tbReservas = new JTable();
 		tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -316,8 +322,12 @@ public class Busqueda extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				editarReserva();
-				editarCliente();
+				
+				if(panel.getSelectedIndex() == 0) {
+					editarReserva();
+				}else {
+					editarCliente();
+				}	
 			}
 		});
 
@@ -348,9 +358,16 @@ public class Busqueda extends JFrame {
 			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				eliminarReserva();
-				eliminarCliente();
-
+				
+				if(panel.getSelectedIndex() == 0) {
+					eliminarReserva();
+					Clear_Table1(tbReservas, modelo);
+					cargarTablaReserva();
+				}else {
+					eliminarCliente();
+					Clear_Table1(tbHuespedes, modeloH);
+					cargarTablaCliete();
+				}
 			}
 		});
 
